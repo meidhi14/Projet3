@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a67a08bb9f.js" crossorigin="anonymous"></script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
+	<script src="script.js" type="module"></script>
+	<script src="modal.js" type="module"></script>
+</head>
+
+<body>
+	<header>
+		<div id="headerEdition" style="display: none;">
+			<i class="fa-solid fa-pen-to-square"></i>
+			<p>Mode édition</p>
+			<button id="bouttonPublierLesChangements">publier les changements</button>
+		</div>
+		<div class="header">
+			<a href="index.html">
+				<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+			</a>
+			<nav>
+				<ul>
+					<li>projets</li>
+					<li>contact</li>
+					<li id="login"><a href="login.html">login</a></li>
+					<li id="logout">logout</li>
+					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<section id="introduction">
+			<figure>
+				<img src="./assets/images/sophie-bluel.png" alt="">
+				<div class="bouttonModifier1">
+					<button class="boutonModifier" style="display: none;"><i class="fa-solid fa-pen-to-square"></i> modifier</button>
+				</div>
+			</figure>
+			<article>
+				<div class="bouttonModifier2">
+					<button class="boutonModifier boutonModifier2" style="display: none;"><i class="fa-solid fa-pen-to-square"></i> modifier</button>
+				</div>
+				<h2>Designer d'espace</h2>
+				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
+					finale du chantier.</p>
+				<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les
+					couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du
+					chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+				<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG,
+					décorateur(trice)</p>
+			</article>
+		</section>
+		<section id="portfolio">
+			<div class="bouttonModifier3">
+				<h2>Mes Projets</h2>
+				<button id="button_open_modal_projets" class="boutonModifier boutonModifier3" style="display: none;"><i class="fa-solid fa-pen-to-square"></i> modifier</button>
+			</div>
+			<div class="filtres">
+				<button class="bouttonTous button_filtre">Tous</button>
+				<button class="bouttonObjets button_filtre">Objets</button>
+				<button class="bouttonAppartements button_filtre">Appartements</button>
+				<button class="bouttonHotelRestaurants button_filtre">Hôtels & restaurants</button>
+			</div>
+			<div class="gallery">
+				<!--Code JS-->
+			</div>
+		</section>
+		<section id="contact">
+			<h2>Contact</h2>
+			<p>Vous avez un projet ? Discutons-en !</p>
+			<form action="#" method="post">
+				<label for="name">Nom</label>
+				<input type="text" name="name" id="name">
+				<label for="email">Email</label>
+				<input type="email" name="email" id="email">
+				<label for="message">Message</label>
+				<textarea name="message" id="message" cols="30" rows="10"></textarea>
+				<input type="submit" value="Envoyer">
+			</form>
+		</section>
+		<!--MODAL1-->
+		<aside id="modal_projets" class="modal button_close_modal" aria-hidden="true" role="dialog" aria-labelledby="titleModal" style="display: none;">
+			<div class="modal_wrapper">
+				<div class="nav_modal_projet">
+					<i class="fa-solid fa-xmark button_close_modal"></i>
+				</div>
+				<h3 id="titleModal"> Galerie photo </h3>
+				<div class="projets">
+					<!--Code JS modal.js -->
+				</div>
+				<button id="button_open_modal_ajout_produits" class="button_ajouter_photo">Ajouter une photo</button>
+				<button class="button_supprimer_galerie">Supprimer la galerie</button>
+			</div>
+		</aside>
+		<!--MODAL2-->
+		<aside id="modal_ajout_projets" class="modal button_close_modal" aria-hidden="true" role="dialog" aria-labelledby="titleModal" style="display: none;">
+			<div class="modal_wrapper">
+				<div class="nav_modal_ajout_projets">
+					<i class="fa-solid fa-arrow-left-long button_return"></i>
+					<i class="fa-solid fa-xmark button_close_modal"></i>
+				</div>
+				<h3 id="titleModal"> Ajout photo</h3>
+				<form id="formModal2">
+					<div class="input_type_image">
+						<div class="avant">
+							<i class="fa-solid fa-image"></i>
+							<label for="image" class="image_uploads">+ Ajouter photo</label>
+							<input  type="file" name="image" id="image" accept="image/*" style="display: none;" required>
+							<p>jpg, png : 4mo max</p>
+						</div>
+						<div class="apres" style="display: none;">
+							
+						</div>
+					</div>
+					<label for="title">Titre</label>
+					<br>
+					<br>
+					<input type="text" name="title" id="title" class="input_form_ajout_projets" required>
+					<br>
+					<label for="category">Catégorie</label>
+					<br>
+					<br>
+					<select name="category" id="category" class="input_form_ajout_projets" required>
+						<option value=""></option>
+						<option value="Objets">Objets</option>
+						<option value="Appartements">Appartements</option>
+						<option value="Hôtels & restaurants">Hôtels & restaurants</option>
+					</select>
+					<div class="div_submit_form_ajout_projets">
+						<input type="submit" name="submit_form_ajout_projets" id="submit_form_ajout_projets" value="Valider">	
+					</div>	
+				</form>	
+			</div>
+		</aside>
+	</main>
+
+	<footer>
+		<nav>
+			<ul>
+				<li>Mentions Légales</li>
+			</ul>
+		</nav>
+	</footer>
+</body>
+
+</html>
