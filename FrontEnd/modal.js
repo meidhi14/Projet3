@@ -12,6 +12,8 @@ const divProjets = document.querySelector(".projets");
 const formulaireImageAvant = document.querySelector(".avant");
 const formulaireImageApres = document.querySelector(".apres");
 const buttonSubmitProjet = document.querySelector("#submit_form_ajout_projets");
+const titleForm = document.querySelector('#title');
+const categorieForm = document.querySelector('#category');
 
 const categories = {
     "": 0,
@@ -19,6 +21,7 @@ const categories = {
     "Appartements": 2,
     "Hôtels & restaurants": 3
   };
+
 
 // --- Afficher la modale Projets ---
 buttonOpenModalProjets.addEventListener("click", (e) => {
@@ -92,27 +95,17 @@ if (currentimage != null) {
 })
 
 // --- Changement d'état du boutton valider ---
-
-const titleForm = document.querySelector('#title');
-const categorieForm = document.querySelector('#category');
 let valeurTitleForm = null;
 let valeurCategorieForm = null;
 
 titleForm.addEventListener("change",(event)=>{
     valeurTitleForm = event.target.value;
     verifValueFormSubmitProject()
-    console.log(valeurTitleForm);
 });
 categorieForm.addEventListener("change",(event)=>{
     valeurCategorieForm = event.target.value;
     verifValueFormSubmitProject()
-    console.log(valeurCategorieForm);
 });
-
-
-
-
-
 
 // --- Envoi du projet ---
 form.addEventListener("submit", (e) => {
@@ -136,8 +129,6 @@ form.addEventListener("submit", (e) => {
     currentimage = null;
     
 });
-
-
 
 // --- Fermer les modales ---
 buttonCloseModalProjets.forEach(button => button.addEventListener("click", (e) => {
@@ -207,10 +198,7 @@ buttonOpenModalAjoutProjets.addEventListener("click", () => {
 
 });
 
-
-
 // --- Boutton return fléché ---
-
 buttonReturn.addEventListener("click", (e) => {
     e.preventDefault(); 
     modalProjets.style.display = 'flex';
@@ -222,12 +210,9 @@ buttonReturn.addEventListener("click", (e) => {
     modalAjoutProjets.removeAttribute('aria-model');
     formulaireImageAvant.style.display ="flex";
     formulaireImageApres.style.display ="none";
-
 })
 
-
 // --- function verif des valeurs du formulaire d'envoi ---
-
 function verifValueFormSubmitProject() {
     if (valeurTitleForm && valeurCategorieForm && currentimage != null) {
         buttonSubmitProjet.style.backgroundColor = "#1D6154";
