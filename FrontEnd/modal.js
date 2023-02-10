@@ -20,7 +20,7 @@ const categories = {
     "Hôtels & restaurants": 3
   };
 
-// Afficher la modale Projets
+// --- Afficher la modale Projets ---
 buttonOpenModalProjets.addEventListener("click", (e) => {
         openModal(e);  
     });
@@ -35,7 +35,7 @@ function openModal(e) {
     injectedWorksInModalProjets(works);
     modalWrapper.forEach(button => button.addEventListener("click", stopPropagation));
     
-    // Supprimer un projet
+    // --- Supprimer un projet ---
     const iconsDeleteProjet =  document.querySelectorAll('.div_logo_delete_projet');
     let id = 0;
     for (let i = 0; i < iconsDeleteProjet.length ; i++){
@@ -54,7 +54,7 @@ function openModal(e) {
     };
 };
 
-// Supprimer la galerie en ENTIERE !!!
+// --- Supprimer la galerie en ENTIERE --- !!!
 buttonRemoveAllGalerry.addEventListener("click", () => {
     let id = 0;
     const workId = works.map(work => work.id);
@@ -70,7 +70,7 @@ buttonRemoveAllGalerry.addEventListener("click", () => {
     };
 });  
 
-// Ajout d'un projet 
+// --- Ajout d'un projet --- 
 const form = document.querySelector("#formModal2");
 const inputImage = document.getElementById("image");
 let currentimage = null;
@@ -82,17 +82,39 @@ if (currentimage != null) {
     formulaireImageAvant.style.display ="none";
     formulaireImageApres.style.display ="flex";
     formulaireImageApres.innerHTML = '<img src="' + URL.createObjectURL(currentimage) +'" class= "imageFormulaireApres">';
-    buttonSubmitProjet.style.backgroundColor = "#1D6154";
+    verifValueFormSubmitProject()
+    console.log(currentimage);  
 } else {
     formulaireImageAvant.style.display ="flex";
     formulaireImageApres.style.display ="none";
     buttonSubmitProjet.style.backgroundColor = "#A7A7A7";
 }
-
 })
 
+// --- Changement d'état du boutton valider ---
 
-// Envoi du projet
+const titleForm = document.querySelector('#title');
+const categorieForm = document.querySelector('#category');
+let valeurTitleForm = null;
+let valeurCategorieForm = null;
+
+titleForm.addEventListener("change",(event)=>{
+    valeurTitleForm = event.target.value;
+    verifValueFormSubmitProject()
+    console.log(valeurTitleForm);
+});
+categorieForm.addEventListener("change",(event)=>{
+    valeurCategorieForm = event.target.value;
+    verifValueFormSubmitProject()
+    console.log(valeurCategorieForm);
+});
+
+
+
+
+
+
+// --- Envoi du projet ---
 form.addEventListener("submit", (e) => {
     e.preventDefault(); 
     let formData = new FormData();
@@ -117,7 +139,7 @@ form.addEventListener("submit", (e) => {
 
 
 
-// Fermer les modales
+// --- Fermer les modales ---
 buttonCloseModalProjets.forEach(button => button.addEventListener("click", (e) => {
     e.preventDefault(); 
     modalProjets.style.display = 'none'; 
@@ -126,20 +148,20 @@ buttonCloseModalProjets.forEach(button => button.addEventListener("click", (e) =
     modalProjets.removeAttribute('aria-model');
     modalAjoutProjets.setAttribute('aria-hidden', 'true');
     modalAjoutProjets.removeAttribute('aria-model');
-    //reset les projets !
+    //--- reset les projets ! ---
     divProjets.innerHTML ="";
     currentimage = null;
     formulaireImageAvant.style.display ="flex";
     formulaireImageApres.style.display ="none";
 }));
 
-// Stop Propagation 
+// --- Stop Propagation --- 
 function stopPropagation (e) {
     e.stopPropagation()
 }
 
-// Function Injecter les projets dans la modale Projets
-// Récupération des works depuis l'Api
+// --- Function Injecter les projets dans la modale Projets ---
+// --- Récupération des works depuis l'Api ---
 const reponse = await fetch("http://localhost:5678/api/works");
 const works = await reponse.json();
 
@@ -173,7 +195,7 @@ function injectedWorksInModalProjets (works) {
     }
 };
 
-// Ouvrire la modale Ajout Projet 
+// --- Ouvrire la modale Ajout Projet ---
 buttonOpenModalAjoutProjets.addEventListener("click", () => {
     modalProjets.style.display = 'none';
     modalProjets.setAttribute('aria-hidden', 'true');
@@ -187,7 +209,7 @@ buttonOpenModalAjoutProjets.addEventListener("click", () => {
 
 
 
-// Boutton return fléché 
+// --- Boutton return fléché ---
 
 buttonReturn.addEventListener("click", (e) => {
     e.preventDefault(); 
@@ -204,3 +226,12 @@ buttonReturn.addEventListener("click", (e) => {
 })
 
 
+// --- function verif des valeurs du formulaire d'envoi ---
+
+function verifValueFormSubmitProject() {
+    if (valeurTitleForm && valeurCategorieForm && currentimage != null) {
+        buttonSubmitProjet.style.backgroundColor = "#1D6154";
+    }else{
+        buttonSubmitProjet.style.backgroundColor = "#A7A7A7";
+    }
+};
