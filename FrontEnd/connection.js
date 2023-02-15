@@ -1,10 +1,18 @@
 document.formLogin.addEventListener('submit', async function (e) {
     e.preventDefault();
-
+    
     const user = {
         email: this.email.value,
         password: this.password.value
     };
+
+    console.log("email",this.email.value)
+    console.log("email",this.password.value)
+    if(this.email.value == "" || this.password.value == ""){
+        alert("un des champs est vide")
+    }else{
+
+  
 
     const res = await fetch('http://localhost:5678/api/users/login', {
         method: "post",
@@ -21,8 +29,9 @@ document.formLogin.addEventListener('submit', async function (e) {
     if (data.token) {
        document.location.href="./index.html";
     } else {
-        alert("error");
+        alert("Le mot de passe ou/et l'identifiant ne sont pas corrects");
     }
+}
     
 });
 
