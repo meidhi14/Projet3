@@ -29,9 +29,8 @@ buttonOpenModalProjets.addEventListener("click", (e) => {
     });
 
 // ---  function Open Modal ---   
-function openModal(e) {
+function openModal() {
 
-    e.preventDefault(); 
     modalProjets.style.display = 'flex';
     modalProjets.removeAttribute('aria-hidden');
     modalProjets.setAttribute('aria-model', 'true');
@@ -43,7 +42,7 @@ function openModal(e) {
     let id = 0;
     for (let i = 0; i < iconsDeleteProjet.length ; i++){
         iconsDeleteProjet[i].addEventListener("click",(e) => {
-            e.preventDefault(); 
+            
             const workId = works.map(work => work.id);
             id = workId[i];
             fetch(`http://localhost:5678/api/works/${id}`, {
@@ -53,7 +52,18 @@ function openModal(e) {
                 "Authorization": "Bearer " + sessionStorage.getItem("token")
                 },
             })
-        });   
+            .then(response => {
+                if (response.ok) {
+                  // Supprimer l'élément dans la modale dynamiquement
+                  iconsDeleteProjet[i].parentNode.remove();
+                  // Supprimer l'élément dans la galerie dynamiquement
+                }
+              })
+              .catch(error => {
+                console.error(error);
+              });
+        });
+   
     };
 };
 
@@ -108,6 +118,7 @@ categorieForm.addEventListener("change",(event)=>{
 });
 
 // --- Envoi du projet ---
+
 form.addEventListener("submit", (e) => {
     e.preventDefault(); 
     let formData = new FormData();
@@ -123,6 +134,7 @@ form.addEventListener("submit", (e) => {
     }).then((response)=>{
         let data = response.json();
         alert("Projet envoyé !");
+        closeAllModal()
     }).catch((error)=>{
         alert(error)
     });
@@ -133,17 +145,7 @@ form.addEventListener("submit", (e) => {
 // --- Fermer les modales ---
 buttonCloseModalProjets.forEach(button => button.addEventListener("click", (e) => {
     e.preventDefault(); 
-    modalProjets.style.display = 'none'; 
-    modalAjoutProjets.style.display = 'none'; 
-    modalProjets.setAttribute('aria-hidden', 'true');
-    modalProjets.removeAttribute('aria-model');
-    modalAjoutProjets.setAttribute('aria-hidden', 'true');
-    modalAjoutProjets.removeAttribute('aria-model');
-    //--- reset les projets ! ---
-    divProjets.innerHTML ="";
-    currentimage = null;
-    formulaireImageAvant.style.display ="flex";
-    formulaireImageApres.style.display ="none";
+    closeAllModal()
 }));
 
 // --- Stop Propagation --- 
@@ -219,4 +221,20 @@ function verifValueFormSubmitProject() {
     }else{
         buttonSubmitProjet.style.backgroundColor = "#A7A7A7";
     }
+};
+
+// --- function fermer les modals --- 
+
+function closeAllModal() {
+    modalProjets.style.display = 'none'; 
+    modalAjoutProjets.style.display = 'none'; 
+    modalProjets.setAttribute('aria-hidden', 'true');
+    modalProjets.removeAttribute('aria-model');
+    modalAjoutProjets.setAttribute('aria-hidden', 'true');
+    modalAjoutProjets.removeAttribute('aria-model');
+    //--- reset les projets ! ---
+    divProjets.innerHTML ="";
+    currentimage = null;
+    formulaireImageAvant.style.display ="flex";
+    formulaireImageApres.style.display ="none";
 };
