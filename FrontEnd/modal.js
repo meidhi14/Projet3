@@ -136,10 +136,10 @@ form.addEventListener("submit", (e) => {
         },
         body: formData
     }).then((response)=>{
-        let data = response.json();
+        return response.json();
+    }).then((data)=>{
         alert("Projet envoyé !");
         closeAllModal();
-        // --- envoi du projet dans la galerie ---
         let i = works.length + 1;
         const sectionGallery = document.querySelector(".gallery");
         const workElement = document.createElement("figure");
@@ -149,11 +149,10 @@ form.addEventListener("submit", (e) => {
         imageElement.crossOrigin = "cross-origin";
         const figcaptionElement = document.createElement("figcaption");
         figcaptionElement.innerHTML = data.title;
-
+    
         sectionGallery.appendChild(workElement);
         workElement.appendChild(imageElement);
         workElement.appendChild(figcaptionElement);
-
     }).catch((error)=>{
         alert(error)
     });
