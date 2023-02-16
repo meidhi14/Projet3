@@ -7,7 +7,7 @@ document.formLogin.addEventListener('submit', async function (e) {
     };
 
     console.log("email",this.email.value)
-    console.log("email",this.password.value)
+    console.log("password",this.password.value)
     if(this.email.value == "" || this.password.value == ""){
         alert("un des champs est vide")
     }else{

@@ -85,6 +85,20 @@ buttonRemoveAllGalerry.addEventListener("click", () => {
                 "Authorization": "Bearer " + sessionStorage.getItem("token")
             },
         })
+        .then(response => {
+            if (response.ok) {
+              // Supprimer l'élément dans la modale dynamiquement
+              const projetModal = document.getElementById(`projetModal${i+1}`);
+              projetModal.replaceWith();
+              // Supprimer l'élément dans la galerie dynamiquement
+              const projet = document.getElementById(`projet${i+1}`);
+              console.log(projet);
+              projet.replaceWith();
+            }
+          })
+          .catch(error => {
+            console.error(error);
+          });
     };
 });  
 
@@ -157,6 +171,9 @@ form.addEventListener("submit", (e) => {
         alert(error)
     });
     currentimage = null;
+    titleForm.value = "";
+    categorieForm.value = "";
+    verifValueFormSubmitProject()
     
 });
 
@@ -182,6 +199,7 @@ function injectedWorksInModalProjets (works) {
         const divProjets = document.querySelector(".projets");
 
         const workElement = document.createElement("figure");
+        workElement.id = "projetModal"+[i+1];
 
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
