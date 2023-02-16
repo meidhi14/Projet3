@@ -7,11 +7,12 @@ const logOut = document.getElementById("logout");
 const reponse = await fetch("http://localhost:5678/api/works");
 const works = await reponse.json();
 
-function genererWorks(works) {
+ export function genererWorks(works) {
     for (let i = 0; i < works.length; i++) {
         const work = works[i];
         const sectionGallery = document.querySelector(".gallery");
         const workElement = document.createElement("figure");
+        workElement.id = "projet"+[i+1];
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;
         imageElement.crossOrigin = "cross-origin";

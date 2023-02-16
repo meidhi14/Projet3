@@ -1,3 +1,5 @@
+import { genererWorks} from "./script.js";
+
 // --- Variables ---
 const modalWrapper = document.querySelectorAll('.modal_wrapper');
 const modalProjets = document.querySelector('#modal_projets');
@@ -57,6 +59,9 @@ function openModal() {
                   // Supprimer l'élément dans la modale dynamiquement
                   iconsDeleteProjet[i].parentNode.remove();
                   // Supprimer l'élément dans la galerie dynamiquement
+                  const projet = document.getElementById(`projet${i+1}`);
+                  console.log(projet);
+                  projet.replaceWith();
                 }
               })
               .catch(error => {
@@ -96,7 +101,6 @@ if (currentimage != null) {
     formulaireImageApres.style.display ="flex";
     formulaireImageApres.innerHTML = '<img src="' + URL.createObjectURL(currentimage) +'" class= "imageFormulaireApres">';
     verifValueFormSubmitProject()
-    console.log(currentimage);  
 } else {
     formulaireImageAvant.style.display ="flex";
     formulaireImageApres.style.display ="none";
@@ -134,7 +138,22 @@ form.addEventListener("submit", (e) => {
     }).then((response)=>{
         let data = response.json();
         alert("Projet envoyé !");
-        closeAllModal()
+        closeAllModal();
+        // --- envoi du projet dans la galerie ---
+        let i = works.length + 1;
+        const sectionGallery = document.querySelector(".gallery");
+        const workElement = document.createElement("figure");
+        workElement.id = "projet"+[i+1];
+        const imageElement = document.createElement("img");
+        imageElement.src = data.imageUrl;
+        imageElement.crossOrigin = "cross-origin";
+        const figcaptionElement = document.createElement("figcaption");
+        figcaptionElement.innerHTML = data.title;
+
+        sectionGallery.appendChild(workElement);
+        workElement.appendChild(imageElement);
+        workElement.appendChild(figcaptionElement);
+
     }).catch((error)=>{
         alert(error)
     });
